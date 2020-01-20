@@ -1,17 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GoogleControllerController } from './google.controller';
+import { GoogleController } from './google.controller';
 
 describe('GoogleController Controller', () => {
-  let controller: GoogleControllerController;
+  let controller: GoogleController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [GoogleControllerController],
+      controllers: [GoogleController],
     }).compile();
 
-    controller = module.get<GoogleControllerController>(
-      GoogleControllerController,
-    );
+    controller = module.get<GoogleController>(GoogleController);
   });
 
   it('should be defined', () => {
