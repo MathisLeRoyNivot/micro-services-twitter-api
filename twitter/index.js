@@ -2,7 +2,7 @@ const express = require('express');
 const { argv } = require("yargs");
 const bodyParser = require('body-parser');
 
-const { getTimeline, postStatus } = require('./twitterService'); 
+const { getUserInfos, getTimeline, postStatus } = require('./twitterService'); 
 
 const app = express();
 app.use(bodyParser.json());
@@ -12,15 +12,21 @@ let port = inputPort && !isNaN(inputPort) && (inputPort > 0 && inputPort % 1 ===
 
 app.get('/api/twitter/timeline', async (req, res) => {
     const response = await getTimeline()
-    res.send(response)
+    res.send(response);
+})
+
+app.get('/api/twitter/user-infos/:screenName', async (req, res) => {
+    const screenNameParam = req.params.screenName
+    const response = await getUserInfos(screenNameParam)
+    res.send(response);
 })
   
 app.post('/api/twitter/status', async (req, res) => {
     const { status } = req.body
     postStatus(status).then((response) => {
-        res.send(response)
+        res.send(response);
     }).catch((error) => {
-        res.status(500).send(error)
+        res.status(500).send(error);
     })
 })
 
@@ -32,9 +38,10 @@ function Routes(routes, method) {
 var routes = {};
 
 routes.timeline = new Routes("/api/twitter/timeline", "GET")
+routes.userInfos = new Routes("/api/twitter/user-infos/:screenName", "GET")
 routes.status = new Routes("/api/twitter/status", "POST")
 
 app.listen(port, () => {
-    console.log(`Server's running on following address : http://localhost:${port}\nAvailable routes :`)
-    console.table(routes)
+    console.log(`Server's running on following address : http://localhost:${port}\nAvailable routes :`);
+    console.table(routes);
 })

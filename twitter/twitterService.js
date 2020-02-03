@@ -16,6 +16,15 @@ const getTimeline = async () => {
     });
 }
 
+const getUserInfos = async (screenName) => {
+    var urlParams = {screen_name: screenName};
+    return clientCredentials.get('users/lookup.json', urlParams).then(res => {
+        return res
+    }).catch(err => {
+        throw err
+    })
+}
+
 // Post new status
 const postStatus = async (status) => {
     const twitterStatus = {
@@ -30,5 +39,6 @@ const postStatus = async (status) => {
 
 module.exports = {
     getTimeline,
+    getUserInfos,
     postStatus
 }
