@@ -18,7 +18,17 @@ const getTimeline = async () => {
 
 const getUserInfos = async (screenName) => {
     var urlParams = {screen_name: screenName};
-    return clientCredentials.get('users/lookup.json', urlParams).then(res => {
+    return clientCredentials.get('users/show.json', urlParams).then(res => {
+        return res
+    }).catch(err => {
+        throw err
+    })
+}
+
+const getUserInfosFromId = async (id) => {
+    var urlParams = {user_id: id};
+    console.log(urlParams);
+    return clientCredentials.get('users/show.json', urlParams).then(res => {
         return res
     }).catch(err => {
         throw err
@@ -40,5 +50,6 @@ const postStatus = async (status) => {
 module.exports = {
     getTimeline,
     getUserInfos,
+    getUserInfosFromId,
     postStatus
 }
