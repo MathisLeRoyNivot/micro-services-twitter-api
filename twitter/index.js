@@ -2,7 +2,7 @@ const express = require('express');
 const { argv } = require("yargs");
 const bodyParser = require('body-parser');
 
-const { getUserInfos, getUserInfosFromId, getTimeline, postStatus } = require('./twitterService'); 
+const { getUserInfosFromName, getUserInfosFromId, getTimeline, postStatus } = require('./twitterService'); 
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,14 +17,17 @@ app.get('/api/twitter/timeline', async (req, res) => {
 
 app.get('/api/twitter/user-infos/:screenName', async (req, res) => {
     const screenNameParam = req.params.screenName
-    const response = await getUserInfos(screenNameParam)
+    const response = await getUserInfosFromName(screenNameParam)
     res.send(response);
 })
 
-app.get('/api/twitter/users/:id/info', async (req, res) => {
+app.get('/api/twitter/user-infos-id/:id', async (req, res) => {
     const idParam = req.params.id
-    const response = await getUserInfosFromId(idParam)
-    return response;
+    getUserInfosFromId(idParam).then(response => {
+        res.send(response);
+    }).catch(err => {
+        res.status(500).send(err);
+    })
 })
   
 app.post('/api/twitter/status', async (req, res) => {
@@ -45,7 +48,7 @@ var routes = {};
 
 routes.timeline = new Routes("/api/twitter/timeline", "GET")
 routes.userInfos = new Routes("/api/twitter/user-infos/:screenName", "GET")
-routes.userInfosFromId = new Routes("/api/twitter/users/:id/info", "GET")
+routes.userInfosFromId = new Routes("/api/twitter/user-infos-id/:id", "GET")
 routes.status = new Routes("/api/twitter/status", "POST")
 
 app.listen(port, () => {
