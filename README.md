@@ -27,11 +27,20 @@ To specify a particular port if the port ::3000 is already used, you can launch 
 node twitter/index.js --port=<port_number>
 ```
 
+## Routes :twisted_rightwards_arrows:
+
+| Route        | Method           | Description  |
+| ------------- |:-------------:| -----:|
+| /api/twitter/timeline | **GET** | Get Twitter timeline |
+| /api/twitter/user-infos/:screenName | **GET** | Get Twitter user from screen name (*screen_name*)|
+| /api/twitter/user-infos-id/:id | **GET** | Get Twitter user infos from id (*id_str*)|
+| /api/twitter/status | **POST** | Post new tweet|
+
 ## Contributors :computer:
 - [Geoffrey Clermont](https://github.com/Geoffrey-max "Go to @Geoffrey-max's Github")
-- [Antonin Joulie](https://github.com/MathisLeRoyNivot "Go to @MathisLeRoyNivot's Github")
+- [Antonin Joulie](https://github.com/AntoninJoulie "Go to @AntoninJoulie's Github")
 - [Mathis Le Roy-Nivot](https://github.com/MathisLeRoyNivot "Go to @MathisLeRoyNivot's Github")
-- [Léo Rigaudeau](https://github.com/MathisLeRoyNivot "Go to @MathisLeRoyNivot's Github")
+- [Léo Rigaudeau](https://github.com/leorigaudeau "Go to @leorigaudeau's Github")
 
 ## License :white_check_mark:
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/MathisLeRoyNivot/micro-services-twitter-api/blob/master/LICENSE) 2020 ©
